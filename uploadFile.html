@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+	<body>
+		<h1>upload file test</h1>
+	    <form action="" class="layui-form" id="form" enctype="multipart/form-data" method="post">
+	        <div class="layui-row layui-col-space10">
+	            <div class="layui-form-item">
+	                <label class="layui-form-label">请选择文件:</label>
+	                <input id="file" type="file" name="file"/>
+	            </div>
+	            <div class="layui-form-item">
+	                <div class="layui-input-block">
+	                    <button type="button" class="layui-btn" id="recordUp_btn" style="border-radius: 5px;"><i class="layui-icon">&#xe67c;</i>上传</button>
+	                </div>
+	            </div>
+	        </div>
+	    </form>
+	    <img src="" id="img" style="width:100px;height:100px;">
+	</body>
+	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="./request.js"></script>
+	<script>
+		$("#recordUp_btn").on('click',function(){
+			var data = new FormData($('#form')[0]);
+			var headers = {
+				"Content-Type":"application/x-www-form-urlencoded"
+			}
+			ask('upload',{
+				params:data,
+				headers
+			}).then(function(data){
+				console.log('请求结果',data);
+				if(data.status === 200){
+					$('#img').attr('src',data.data.imgUrl);
+				}
+			});
+		});
+	</script>
+</html>
